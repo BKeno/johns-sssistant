@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
+import LoginScreen from './components/auth/LoginScreen';
 import TaskList from './components/TaskList';
-import { db } from './firestore/FirebaseConfig';
 import { fetchData, addTask, updateTask, deleteTask } from './firestore/TaskService';
 
 export default function App() {
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [tasks, setTasks] = useState([]);
+
+  const handleLogin = (email, password) => {
+    // TODO: Add Firebase authentication logic here
+    setIsLoggedIn(true);
+  };
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -21,10 +25,14 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <TaskList tasks={tasks} updateTask={updateTask} deleteTask={deleteTask} />
+      {isLoggedIn ? (
+        <TaskList tasks={tasks} /* other props */ />
+      ) : (
+        <LoginScreen onLogin={handleLogin} />
+      )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

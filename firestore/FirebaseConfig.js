@@ -1,3 +1,5 @@
+import Constants from "expo-constants";
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
@@ -8,13 +10,13 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyC7kmsbwZoUJR07gF5Nyca9F42oPcjkKv0",
-  authDomain: "johnsassistant-a5f28.firebaseapp.com",
-  projectId: "johnsassistant-a5f28",
-  storageBucket: "johnsassistant-a5f28.appspot.com",
-  messagingSenderId: "615453641529",
-  appId: "1:615453641529:web:eaa6e49b4a0325f2e076e8",
-  measurementId: "G-YMTJJE4W36"
+  apiKey: Constants.expoConfig.extra.EXPO_PUBLIC_APIKEY,
+  authDomain: Constants.expoConfig.extra.EXPO_PUBLIC_UTHDOMAIN,
+  projectId: Constants.expoConfig.extra.EXPO_PUBLIC_PROJECTID,
+  storageBucket: Constants.expoConfig.extra.EXPO_PUBLIC_STORAGEBUCKET,
+  messagingSenderId: Constants.expoConfig.extra.EXPO_PUBLIC_MESSAGINGSENDERID,
+  appId:Constants.expoConfig.extra.EXPO_PUBLIC_APPID,
+  measurementId: Constants.expoConfig.extra.EXPO_PUBLIC_MEASUREMENTID
 };
 
 // Initialize Firebase

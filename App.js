@@ -5,7 +5,6 @@ import TaskList from './components/TaskList';
 import { fetchData, addTask, updateTask, deleteTask } from './firestore/TaskService';
 
 export default function App() {
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [tasks, setTasks] = useState([]);
 
@@ -19,7 +18,6 @@ export default function App() {
       const taskData = await fetchData();
       setTasks(taskData);
     };
-
     fetchTasks();
   }, []);
 

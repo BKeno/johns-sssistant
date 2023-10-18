@@ -7,12 +7,10 @@
   - [Introduction](#introduction)
   - [Installation](#installation)
   - [Running the Project](#running-the-project)
+    - [Configuration](#configuration)
     - [Local Development](#local-development)
     - [Server Deployment](#server-deployment)
   - [Special Environment Variable Handling](#special-environment-variable-handling)
-    - [Local Development](#local-development-1)
-    - [Server Deployment](#server-deployment-1)
-  - [Contributing](#contributing)
   - [License](#license)
 
 ---
@@ -24,11 +22,15 @@ This project is a React Native app developed with Expo. This wiki provides guide
 ---
 
 ## Installation
+
 1. Clone the repository:
+
     ```bash
     git clone https://github.com/your-username/your-project-name.git
     ```
+
 2. Install dependencies:
+
     ```bash
     cd your-project-name
     npm install
@@ -38,21 +40,37 @@ This project is a React Native app developed with Expo. This wiki provides guide
 
 ## Running the Project
 
-### Local Development
+### Configuration
 
-1. Create a `.env` file in the project root to store your environment variables.
-2. Create an `app.config.js` file in the project root (if it doesn't already exist) and configure it to load environment variables from the `.env` file and expose them to the Expo runtime, like so:
+1. Create an `app.config.js` file in the project root (if it doesn't already exist). This file is crucial for both local development and server deployment to ensure the environment variables are correctly mapped to the `Constants` object.
+
     ```javascript
-    require("dotenv").config();
-    
     export default {
         // rest of config...
         extra: {
-            ENV_VAR: process.env.ENV_VAR
+            ENV_VAR: process.env.ENV_VAR  // replace ENV_VAR with your actual environment variable names
         }
     };
     ```
-3. To run the project locally, you can execute the `start-app.bat` file by double-clicking it or running it from the command line, or simply use the following command:
+
+### Local Development
+
+1. Install the `dotenv` package as a development dependency:
+
+    ```bash
+    npm install dotenv --save-dev
+    ```
+
+2. Create a `.env` file in the project root to store your environment variables.
+3. In the `app.config.js` file, add the following line at the top to load the environment variables from the `.env` file:
+
+    ```javascript
+    import dotenv from "dotenv";
+    dotenv.config();
+    ```
+
+4. To run the project locally, use the following command:
+
     ```bash
     npm start
     ```
@@ -60,7 +78,9 @@ This project is a React Native app developed with Expo. This wiki provides guide
 ### Server Deployment
 
 1. Set the environment variables through the hosting service's dashboard or CLI.
-2. Run the project using:
+2. The `app.config.js` file will map these environment variables to the `Constants` object as specified.
+3. Run the project using:
+
     ```bash
     npm start
     ```
@@ -69,28 +89,12 @@ This project is a React Native app developed with Expo. This wiki provides guide
 
 ## Special Environment Variable Handling
 
-This project uses a special approach to handle environment variables. The method differs for local development and server deployment.
-
-### Local Development
-
-1. Environment variables are loaded from a `.env` file using the `dotenv` package and are exposed to the Expo runtime via the `app.config.js` file.
-2. This setup allows for easy management and usage of environment variables during local development.
-
-### Server Deployment
-
-1. For server environments, use the hosting service's dashboard or CLI to set environment variables.
-2. These variables will be accessible to the app when it runs.
+This project uses a special approach to handle environment variables, ensuring that they are correctly mapped to the `Constants` object for both local development and server deployment. The `dotenv` package is used for local development to load environment variables from a `.env` file, while for server deployment, environment variables are set through the hosting service.
 
 > **Note**: This approach ensures that sensitive API keys are not committed to the version control system.
 
 ---
 
-## Contributing
-
-Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) for details on how to contribute to this project.
-
----
-
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE.md](./LICENSE.md) file for details.
+This project is licensed under the MIT License.
